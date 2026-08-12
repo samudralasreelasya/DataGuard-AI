@@ -1,0 +1,5 @@
+# Add pinned package versions only after the first working implementation.
+streamlit
+pandas
+plotly
+google-genai

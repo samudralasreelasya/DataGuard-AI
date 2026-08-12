@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets and local settings
+.env
+.streamlit/secrets.toml
+
+# User-provided data and generated reports (never commit)
+data/
+uploads/
+exports/
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.pdf
+
+# Tooling
+.pytest_cache/
+.mypy_cache/
+.DS_Store
