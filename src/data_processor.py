@@ -3,15 +3,14 @@ import numpy as np
 
 def optimize_memory(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Optimizes the memory footprint of a Pandas DataFrame by downcasting numeric types.
-    This prevents memory exhaustion on cloud servers (Streamlit Cloud).
+    Optimizes memory usage of a Pandas DataFrame by downcasting numeric types.
     """
     start_mem = df.memory_usage().sum() / 1024 ** 2
     
     for col in df.columns:
         col_type = df[col].dtype
         
-        if col_type != object and not pd.api.types.is_datetime64_any_dtype(df[col]):
+        if pd.api.types.is_numeric_dtype(col_type):
             c_min = df[col].min()
             c_max = df[col].max()
             
@@ -31,50 +30,30 @@ def optimize_memory(df: pd.DataFrame) -> pd.DataFrame:
                     df[col] = df[col].astype(np.float64)
                     
     end_mem = df.memory_usage().sum() / 1024 ** 2
-    print(f"Memory optimization: Reduced from {start_mem:.2f} MB to {end_mem:.2f} MB")
     return df
 
-def load_and_process_data(uploaded_file, max_rows=100000):
+def get_dataset_stats(df: pd.DataFrame) -> dict:
     """
-    Loads an uploaded CSV file safely, limits row counts for performance, 
-    and applies memory optimization.
+    Computes summary health statistics for the dataset.
     """
-    try:
-        # Read file with row limit safety check
-        df = pd.read_csv(uploaded_file, nrows=max_rows)
-        
-        # Optimize memory usage
-        df = optimize_memory(df)
-        return df
-    except Exception as e:
-        raise ValueError(f"Failed to parse CSV file: {e}")
-
-def get_data_health_metrics(df: pd.DataFrame) -> dict:
-    """Computes core data quality metrics for KPI cards."""
-    total_rows = df.shape[0]
-    total_cols = df.shape[1]
-    missing_cells = int(df.isnull().sum().sum())
-    duplicate_rows = int(df.duplicated().sum())
-    
-    total_cells = total_rows * total_cols
-    missing_percentage = (missing_cells / total_cells) * 100 if total_cells > 0 else 0.0
-    memory_usage_mb = round(df.memory_usage().sum() / 1024 ** 2, 2)
-
-    return {
-        "total_rows": total_rows,
-        "total_cols": total_cols,
-        "missing_cells": missing_cells,
-        "missing_percentage": round(missing_percentage, 2),
-        "duplicate_rows": duplicate_rows,
-        "memory_usage_mb": memory_usage_mb
+    stats = {
+        "total_rows": int(df.shape[0]),
+        "total_cols": int(df.shape[1]),
+        "missing_cells": int(df.isnull().sum().sum()),
+        "duplicate_rows": int(df.duplicated().sum()),
+        "dtypes": {str(k): str(v) for k, v in df.dtypes.to_dict().items()}
     }
+    return stats
 
-def get_column_summary(df: pd.DataFrame) -> pd.DataFrame:
-    """Returns data types and missing counts per column for deep inspection."""
-    summary_df = pd.DataFrame({
-        "Column Name": df.columns,
-        "Data Type": df.dtypes.astype(str),
-        "Missing Values": df.isnull().sum().values,
-        "Unique Values": df.nunique().values
-    })
-    return summary_df
+def get_column_recommendations(df: pd.DataFrame) -> dict:
+    """
+    Generates basic cleaning/type recommendations for columns.
+    """
+    recommendations = {}
+    for col in df.columns:
+        missing = df[col].isnull().sum()
+        if missing > 0:
+            recommendations[col] = f"Contains {missing} missing values. Consider imputation."
+        else:
+            recommendations[col] = "Clean"
+    return recommendations

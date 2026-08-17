@@ -1,43 +1,67 @@
-# DataGuard AI — AI & RAG Data Readiness Studio
+# 🛡️ DataGuard AI | Multi-modal Data Collection & ML-Readiness Studio
 
-DataGuard AI is a planned Streamlit application for checking whether a tabular dataset is ready for machine-learning workflows and for giving practical, AI-assisted recommendations before a model or RAG pipeline is built.
+> **MirAI School of Technology Capstone Project (Category D: Productivity & Enterprise Automation)** > **Live Demo:** [Streamlit Cloud Deployment URL](#) *(Replace with your live link once deployed)* > **Repository:** [samudralasreelasya/DataGuard-AI](https://github.com/samudralasreelasya/DataGuard-AI)
 
-## Planned scope
+---
 
-- Upload a user-provided CSV dataset (no data is stored in this repository).
-- Inspect data quality: missing values, duplicate rows, inconsistent types, outliers, and class balance.
-- Present interactive visual summaries and an editable cleaning review.
-- Generate an AI-assisted readiness report using Gemini, based on calculated checks and user-provided context.
-- Export a reviewed, cleaned dataset and a concise readiness summary.
+## 🚀 Overview
+**DataGuard AI** is a sophisticated multi-modal data quality and machine learning readiness tool created using **Streamlit**, **Pandas**, **Plotly**, and **Google Gemini AI**. It gives developers, data scientists, and analysts the ability to validate, audit, and profile CSV files before using them for ML training or RAG systems.
 
-The first release deliberately focuses on CSV/tabular data. Document, image, video, deep-learning training, and RAG ingestion are future extensions—not part of this capstone MVP.
+---
 
-## Planned structure
+## ✨ Key Features
+1. **Interactive Data Ingestion & Profiling**: Load large CSV files (max file size 500MB) directly in the main dashboard to derive instant health metrics (missing values, duplicate rows, memory consumption).
+2. **Interactive Data Editor (`st.data_editor`)**: Edit and rectify inconsistent values directly from the web interface to export a production ready dataset.
+3. **Advanced Visualization Tools**: Interactive KPI cards, missing value density heatmaps, correlation matrix, and distribution graphs with Plotly.
+4. **Multimodal Gemini AI Capability (`gemini-3.5-flash`)**:
+   - **Vision Functionality**: Upload a data dictionary/schema screenshot in order to make Gemini understand column semantics.
+   - **Custom ML Readiness Audit**: Uses dataset statistics, schema information, and project goals for structured audit reports, bias warnings, and missing values strategy.
+5. **Text-to-Speech (TTS) Report Creation**: Transform your customized readiness report into audible MP3 format using `gTTS`.
+## 🛠️ System Architecture Diagram
+```mermaid
+graph TD
+    A[User / Browser] -->|Uploads CSV & Schema Image| B(Streamlit Frontend Dashboard)
+    A -->|Project Objective Description| B
+    B -->|State Management: st.session_state| B
+    B -->|Calculates Stats via Pandas| C[Data Processing Module]
+    C -->|Numeric Distributions & Heatmaps| B
+    B -->|Sends Multimodal Payload: Image + Stats + Prompt| D[Google Gemini AI Engine]
+    D -->|Returns Tailored ML-Readiness Report| B
+    B -->|Interactive Data Editor| E[Cleaned CSV Export]
+⚙️ Tech Stack & Dependencies
+Python 3.10+
 
-```text
-DataGuard-AI/
-├── app.py                 # Streamlit entry point (to be implemented together)
-├── requirements.txt
-├── README.md
-├── .gitignore
-├── src/                   # Application modules (to be added)
-├── tests/                 # Tests (to be added)
-└── docs/                  # Architecture and demo materials (to be added)
-```
+Streamlit (Interactive Frontend UI)
 
-## Working schedule (IST)
+Pandas & NumPy (Data processing & memory optimization)
 
-| Date | Time | Planned focus |
-| --- | --- | --- |
-| Aug 12–16 | 20–30 minutes/day, flexible | Set the feature scope, create the project shell, sketch the interface, and prepare the build plan. |
-| Aug 17–21 | Exam week; optional 10–20 minutes/day | Exam-first: only light tasks such as notes, UI decisions, or README updates if time permits. |
-| Aug 22 (Saturday) | Main build session | Build the Streamlit dashboard shell and CSV workflow together. |
-| Aug 23 (Sunday) | Main build session | Add the Gemini readiness report, visual polish, and testing. |
-| Aug 24 | Flexible finalisation session | Deploy, document the system design, and rehearse the demo. |
-| Aug 25 | Before 11:59 PM | Final testing, push final code to `main`, record demo video, and publish the required LinkedIn post. |
+Plotly (Interactive data visualizations & heatmaps)
 
-Exact session start/end times will be added as we agree them; this table records the planned dates and working windows so the project timeline remains visible.
+Google GenerativeAI SDK (google-generativeai)
 
-## Next session
+gTTS (Google Text-to-Speech audio synthesis)
 
-We will decide the first screen layout and create `app.py` together. No user data or sample datasets have been added.
+Pillow (PIL) (Image processing for schema uploads)
+🚀 Local Installation & Setup
+1. Clone the Repository:
+    git clone [https://github.com/samudralasreelasya/DataGuard-AI.git](https://github.com/samudralasreelasya/DataGuard-AI.git)
+cd DataGuard-AI
+2. Create and Activate a Virtual Environment (Recommended):
+    python -m venv .venv
+    .venv\Scripts\activate   # On Windows PowerShell/CMD
+3. Install Dependencies:
+    pip install -r requirements.txt
+4. Set Up Your Gemini API Key:
+    Set your environment variable in your terminal:
+    set GEMINI_API_KEY=your_actual_api_key_here
+5. Run the Application:
+    python -m streamlit run app.py
+🧠 Key Features of Capstone Design
+Preservation of Session State: Utilizes st.session_state to save profiling data and AI reports even after various interactions with widgets.
+
+Minimizing Unnecessary Requests: Makes use of st.form to avoid unnecessary queries to the API, Gemini, by design.
+
+Exception Handling: In-built exception handlers help in managing HTTP 429 rate limit and deprecation exceptions without UI failure.
+
+© 2026 Samudrala Sreelasya | MirAI School of Technology Capstone
+
