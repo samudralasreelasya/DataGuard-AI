@@ -28,6 +28,7 @@ graph TD
     B -->|Sends Multimodal Payload: Image + Stats + Prompt| D[Google Gemini API]
     D -->|Returns Tailored ML Readiness Report| B
     B -->|Interactive Data Editor| E[Cleaned CSV Export]
+```
 
 ## ⚙️ Tech Stack & Dependencies
 Python 3.10+
