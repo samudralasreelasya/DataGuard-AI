@@ -20,15 +20,16 @@
 ## 🛠️ System Architecture Diagram
 ```mermaid
 graph TD
-    A[User / Browser] -->|Uploads CSV & Schema Image| B(Streamlit Frontend Dashboard)
-    A -->|Project Objective Description| B
+    A[User / Browser] -->|Uploads CSV & Schema Image| B[Streamlit Frontend Dashboard]
+    A -->|Text Objective| B
     B -->|State Management: st.session_state| B
     B -->|Calculates Stats via Pandas| C[Data Processing Module]
-    C -->|Numeric Distributions & Heatmaps| B
-    B -->|Sends Multimodal Payload: Image + Stats + Prompt| D[Google Gemini AI Engine]
-    D -->|Returns Tailored ML-Readiness Report| B
+    C -->|Numeric Distributions & Correlations| B
+    B -->|Sends Multimodal Payload: Image + Stats + Prompt| D[Google Gemini API]
+    D -->|Returns Tailored ML Readiness Report| B
     B -->|Interactive Data Editor| E[Cleaned CSV Export]
-⚙️ Tech Stack & Dependencies
+
+## ⚙️ Tech Stack & Dependencies
 Python 3.10+
 
 Streamlit (Interactive Frontend UI)
@@ -42,7 +43,7 @@ Google GenerativeAI SDK (google-generativeai)
 gTTS (Google Text-to-Speech audio synthesis)
 
 Pillow (PIL) (Image processing for schema uploads)
-🚀 Local Installation & Setup
+## 🚀 Local Installation & Setup
 1. Clone the Repository:
     git clone [https://github.com/samudralasreelasya/DataGuard-AI.git](https://github.com/samudralasreelasya/DataGuard-AI.git)
 cd DataGuard-AI
