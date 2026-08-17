@@ -1,5 +1,6 @@
-# Add pinned package versions only after the first working implementation.
 streamlit
 pandas
+numpy
 plotly
-google-genai
+google-generativeai
+gTTS
