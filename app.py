@@ -17,7 +17,57 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+# 2. Initialize Login State
+if "logged_in" not in st.session_state:
+    st.session_state["logged_in"] = False
+    st.session_state["user_email"] = "" # Track the user's email
 
+# 3. Show Login Form OR Main App
+if not st.session_state["logged_in"]:
+    # --- MOCK LOGIN UI ---
+    col1, col2, col3 = st.columns([1, 2, 1])
+    
+    with col2:
+        st.write("") 
+        st.write("") 
+        st.markdown("<h1 style='text-align: center; color: #1E3A8A;'>🛡️ DataGuard AI</h1>", unsafe_allow_html=True)
+        st.markdown("<h4 style='text-align: center; color: #64748B;'>Enterprise Authentication</h4>", unsafe_allow_html=True)
+        st.write("")
+        
+        with st.form("login_form"):
+            email = st.text_input("Work Email", placeholder="evaluator@mirai.edu")
+            password = st.text_input("Password", type="password", placeholder="admin123")
+            submit_button = st.form_submit_button("Secure Login", use_container_width=True)
+            
+            if submit_button:
+                # Accept ANY email containing an '@' with the demo password
+                if "@" in email and password == "admin123":
+                    st.session_state["logged_in"] = True
+                    st.session_state["user_email"] = email # Save the email to session state
+                    st.success(f"Authentication successful for {email}! Loading...")
+                    st.rerun() 
+                elif "@" not in email:
+                    st.error("Please enter a valid email address containing an '@'.")
+                else:
+                    st.error("Invalid password. Please use the demo password.")
+else:
+    # ==========================================
+    # 🚀 MAIN DASHBOARD CODE GOES HERE 🚀
+    # ==========================================
+    
+    # Add User Profile & Logout to the sidebar
+    with st.sidebar:
+        # Display the email they logged in with!
+        st.markdown(f"**👤 Logged in as:**")
+        st.caption(f"{st.session_state['user_email']}")
+        st.markdown("---")
+        
+        if st.button("Logout", type="primary", use_container_width=True):
+            st.session_state["logged_in"] = False
+            st.session_state["user_email"] = ""
+            st.rerun()
+
+    # ... [Rest of your app.py Custom CSS and layout goes here] ...
 
 # --- Custom CSS Styling (Enterprise UI Upgrade) ---
 st.markdown("""
