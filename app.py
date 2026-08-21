@@ -18,30 +18,83 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- Custom CSS Styling ---
+
+# --- Custom CSS Styling (Enterprise UI Upgrade) ---
 st.markdown("""
     <style>
+    /* 1. Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+    /* 2. Apply Font to the entire app */
+    html, body, [class*="css"] {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* 3. Hide Default Streamlit Branding (Menu & Footer) */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+
+    /* 4. Custom Headers */
     .main-header {
-        font-size: 2.2rem;
-        color: #1E3A8A;
+        font-size: 2.6rem;
+        color: #0F172A;
         font-weight: 700;
+        letter-spacing: -0.02em;
         margin-bottom: 0.2rem;
     }
     .sub-header {
-        font-size: 1.1rem;
-        color: #4B5563;
-        margin-bottom: 1.5rem;
+        font-size: 1.15rem;
+        color: #64748B;
+        font-weight: 400;
+        margin-bottom: 2rem;
     }
+
+    /* 5. Style the Metric Cards (KPIs) */
+    [data-testid="stMetricValue"] {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #1E3A8A;
+    }
+    [data-testid="metric-container"] {
+        background-color: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        padding: 15px 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        transition: transform 0.2s ease;
+    }
+    [data-testid="metric-container"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 6. Style Primary Buttons (Like the Gemini Submit Button) */
+    .stButton > button {
+        background-color: #1E3A8A;
+        color: white;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s ease;
+    }
+    .stButton > button:hover {
+        background-color: #1E40AF;
+        box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+        color: white;
+    }
+
+    /* 7. Health Review Container */
     .health-container {
-        background-color: #EFF6FF;
-        border: 1px solid #BFDBFE;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
+        background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid #CBD5E1;
+        margin-bottom: 24px;
     }
     </style>
 """, unsafe_allow_html=True)
-
 # --- Sidebar Configuration (Branding & Sample Datasets Only) ---
 with st.sidebar:
     st.image("https://img.icons8.com/color/96/shield.png", width=70)
