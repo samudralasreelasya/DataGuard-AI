@@ -470,13 +470,16 @@ else:
                     "Audit this dataset to evaluate its readiness for predicting customer churn. "
                     "Check for target variable imbalances and missing value risks."
                 )
+                st.session_state["audit_prompt_area"] = st.session_state["audit_prompt_text"]
                 st.rerun()
             elif p2_clicked:
                 st.session_state["audit_prompt_text"] = (
                     "Identify severe data quality bottlenecks, highly correlated features, missing "
                     "value strategies, and potential data leaks for model training."
                 )
+                st.session_state["audit_prompt_area"] = st.session_state["audit_prompt_text"]
                 st.rerun()
+  
 
             st.markdown("##### 🎙️ Or Speak Your Prompt")
             rec_col, txt_col = st.columns([1, 2])
@@ -487,7 +490,10 @@ else:
                     transcribed = speech_to_text(recorded_audio)
                     if transcribed:
                         st.session_state["audit_prompt_text"] = transcribed
+                        st.session_state["audit_prompt_area"] = transcribed
                         st.success(f"Transcribed: \u201c{transcribed}\u201d")
+                        st.rerun()
+                
                     else:
                         st.warning("Couldn't make out any speech — please try again or type your prompt.")
 
