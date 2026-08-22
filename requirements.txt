@@ -4,4 +4,6 @@ numpy
 plotly
 google-generativeai
 gTTS
-PIL
+Pillow
+streamlit-audiorecorder
+pydub
