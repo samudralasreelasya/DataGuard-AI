@@ -7,3 +7,5 @@ gTTS
 Pillow
 streamlit-audiorecorder
 pydub
+SpeechRecognition
+imageio-ffmpeg
