@@ -3,9 +3,5 @@ pandas
 numpy
 plotly
 Pillow
-streamlit-audiorecorder
-pydub
 gtts
-SpeechRecognition
-google-generativeai
-imageio-ffmpeg
+google-genai
