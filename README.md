@@ -74,3 +74,10 @@ system_instruction = (
 )
 
 user_prompt = f
+📥 > deployment
+
+Deployed on Streamlit Community Cloud: 👉 https://dataguard-ai-titvzta9necybkrd4njqlq.streamlit.app/
+
+requirements.txt is pinned to only the packages actually imported in app.py — no unused system-dependent libraries, to keep the cloud build clean and fast.
+
+© 2026 Samudrala Sreelasya | MirAI School of Technology Capstone
