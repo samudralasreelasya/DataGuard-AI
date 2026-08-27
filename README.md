@@ -185,7 +185,7 @@ $ grep -r "try:" app.py | wc -l
 ```
 
 ---
-
+```
 ## 📥 `> deployment`
 
 Deployed on **Streamlit Community Cloud**:
@@ -195,7 +195,7 @@ Deployed on **Streamlit Community Cloud**:
 no unused system-dependent libraries, to keep the cloud build clean and fast.
 
 ---
-
+```
 ```
 © 2026 Samudrala Sreelasya | MirAI School of Technology Capstone
 ```
